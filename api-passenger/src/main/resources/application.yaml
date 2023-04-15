@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8048
+  application:
+    name: api-passenger
+  redis:
+    port: 6379
+    host: localhost
+    database: 0
