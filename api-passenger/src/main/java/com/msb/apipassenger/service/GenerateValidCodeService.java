@@ -1,10 +1,12 @@
 package com.msb.apipassenger.service;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
+import com.msb.apipassenger.remote.ServicePassengerUserFeign;
 import com.msb.apipassenger.remote.ServiceVerificationCodeFeign;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.internalcommon.request.VerificationCodeDTO;
 import com.msb.internalcommon.response.NumberCodeResponse;
+import com.msb.internalcommon.response.TokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class GenerateValidCodeService {
 
     @Autowired
     private ServiceVerificationCodeFeign serviceVerificationCodeFeign;
+
+    @Autowired
+    private ServicePassengerUserFeign servicePassengerUserFeign;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -73,8 +78,10 @@ public class GenerateValidCodeService {
             return ResponseResult.fail(1099,"校验失败","");
         }
         //校验成功,根据手机号查询用户,没有则插入
-        //loginOrRegister(phone);
+        ResponseResult responseResult = servicePassengerUserFeign.loginOrRegister(verificationCodeDTO);
         //生成token返回
-        return ResponseResult.success();
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setToken("token");
+        return ResponseResult.success(tokenResponse);
     }
 }
