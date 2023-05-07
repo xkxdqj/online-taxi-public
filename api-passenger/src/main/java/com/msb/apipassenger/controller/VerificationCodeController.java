@@ -36,7 +36,7 @@ public class VerificationCodeController {
     public ResponseResult checkVerificationCode(@RequestBody VerificationCodeDTO verificationCodeDTO){
         System.out.println("phone:"+verificationCodeDTO.getPhone());
         System.out.println("verificationCode:"+verificationCodeDTO.getVerificationCode());
-        TokenResponse tokenResponse = new TokenResponse();
-        return ResponseResult.success(tokenResponse);
+        ResponseResult responseResult = generateValidCodeService.checkVerificationCode(verificationCodeDTO);
+        return responseResult;
     }
 }
