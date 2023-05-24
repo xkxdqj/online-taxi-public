@@ -12,9 +12,14 @@ import lombok.Getter;
 public enum CommonStatusEnum {
 
     /**
-     * Token类提示：1100-1199
+     * Token错误
      */
     TOKEN_ERROR(1199,"token错误"),
+
+    /**
+     * 用户不存在
+     */
+    USER_NOT_EXIST(1200,"用户不存在"),
 
     SUCCESS(1,"success"),
     FAIL(0,"fail")

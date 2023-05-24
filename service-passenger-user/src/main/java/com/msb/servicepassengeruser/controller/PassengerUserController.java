@@ -28,4 +28,10 @@ public class PassengerUserController {
         ResponseResult responseResult = passengerUserService.loginOrRegister(phone);
         return responseResult;
     }
+
+    @RequestMapping(method= RequestMethod.GET,value = "/user/{phone}")
+    public ResponseResult getUserByPhone(@PathVariable String phone){
+        ResponseResult responseResult = passengerUserService.getUserByPhone(phone);
+        return responseResult;
+    }
 }

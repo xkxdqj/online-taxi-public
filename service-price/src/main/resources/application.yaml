@@ -1,0 +1,9 @@
+server:
+  port: 8084
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8048
+  application:
+    name: service-price

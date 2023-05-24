@@ -22,15 +22,16 @@ import java.io.PrintWriter;
  */
 public class JwtInterceptor implements HandlerInterceptor {
 
-    private boolean result = true;
-
-    private String resultString;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        boolean result = true;
+
+        String resultString = "";
+
         // 从header中获取token
         String token = request.getHeader("Authorization");
 

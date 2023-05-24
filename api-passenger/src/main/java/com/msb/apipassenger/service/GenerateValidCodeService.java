@@ -86,12 +86,12 @@ public class GenerateValidCodeService {
         TokenResponse tokenResponse = new TokenResponse();
 
         String accessToken = JwtUtil.generatorToken(phone, IdentityConstants.PASSENGER_IDENTITY,TokenConstants.ACCESS_TOKEN_TYPE);
-        String refreshToken = JwtUtil.generatorToken(phone, IdentityConstants.DRIVER_IDENTITY,TokenConstants.REFRESH_TOKEN_TYPE);
+        String refreshToken = JwtUtil.generatorToken(phone, IdentityConstants.PASSENGER_IDENTITY,TokenConstants.REFRESH_TOKEN_TYPE);
         tokenResponse.setAccessToken(accessToken);
         tokenResponse.setRefreshToken(refreshToken);
         //将token存入redis
         stringRedisTemplate.opsForValue().set(RedisPrefixUtils.generatorTokenKey(phone,IdentityConstants.PASSENGER_IDENTITY,TokenConstants.ACCESS_TOKEN_TYPE),accessToken,30,TimeUnit.SECONDS);
-        stringRedisTemplate.opsForValue().set(RedisPrefixUtils.generatorTokenKey(phone,IdentityConstants.DRIVER_IDENTITY,TokenConstants.REFRESH_TOKEN_TYPE),refreshToken,50,TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(RedisPrefixUtils.generatorTokenKey(phone,IdentityConstants.PASSENGER_IDENTITY,TokenConstants.REFRESH_TOKEN_TYPE),refreshToken,50,TimeUnit.SECONDS);
         return ResponseResult.success(tokenResponse);
     }
 }

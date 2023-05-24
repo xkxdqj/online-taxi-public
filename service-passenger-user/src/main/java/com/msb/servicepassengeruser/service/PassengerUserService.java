@@ -1,5 +1,6 @@
 package com.msb.servicepassengeruser.service;
 
+import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.servicepassengeruser.dto.PassengerUserDTO;
 import com.msb.servicepassengeruser.mapper.PassengerUserMapper;
@@ -41,7 +42,7 @@ public class PassengerUserService {
             //为空，注册用户
             PassengerUserDTO passengerUserDTO = new PassengerUserDTO();
             passengerUserDTO.setPassengerPhone(phone);
-            passengerUserDTO.setPassengerName(phone);
+            passengerUserDTO.setPassengerName("张三");
             passengerUserDTO.setPassengerGender((byte)1);
             passengerUserDTO.setState((byte)1);
             //设置createTime和updateTime为当前时间，格式为yyyy-MM-dd HH:mm:ss
@@ -59,5 +60,26 @@ public class PassengerUserService {
         }
 
         return ResponseResult.success();
+    }
+
+    /**
+     * 根据手机号查询用户信息
+     * @param phone
+     * @return
+     */
+    public ResponseResult getUserByPhone(String phone) {
+        HashMap<String,Object> map = new HashMap();
+        map.put("passenger_phone",phone);
+
+        //根据手机号查询用户
+        List<PassengerUserDTO> passengerUserList = passengerUserMapper.selectByMap(map);
+
+        //判断passengerUserList是否为空
+        if(passengerUserList.size() == 0){
+            //为空，返回失败
+            return ResponseResult.fail(CommonStatusEnum.USER_NOT_EXIST.getCode(), CommonStatusEnum.USER_NOT_EXIST.getMessage());
+        }
+        PassengerUserDTO passengerUserDTO = passengerUserList.get(0);
+        return ResponseResult.success(passengerUserDTO);
     }
 }

@@ -18,4 +18,5 @@ public class PassengerUserDTO {
     Byte state;
     String createTime;
     String updateTime;
+    String profilePhoto;
 }
